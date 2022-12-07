@@ -12,7 +12,7 @@ const FooterStyle = styled.div`
     position: absolute;
     bottom:0;
     left:0;
-    background: blue;
+    background: green;
     width: 375px;
     display: flex;
     justify-content: center;
