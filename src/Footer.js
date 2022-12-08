@@ -16,5 +16,4 @@ const FooterStyle = styled.div`
     width: 375px;
     display: flex;
     justify-content: center;
-
 `
