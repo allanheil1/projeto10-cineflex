@@ -1,8 +1,9 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import styled from 'styled-components'
-import axios from 'axios'
-import Footer from '../../components/Footer'
+import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import Footer from '../../components/Footer';
+import Assento from './Assento';
 
 export default function SelecionarAssentos(){
 
@@ -19,26 +20,6 @@ export default function SelecionarAssentos(){
         {promise.then((res) => (setAssentos(res.data), console.log(res.data.seats)))}
     ,[])
 
-    function SelecionarAssento(id, isAvailable){
-
-        let reservados = ids;
-
-        if(!isAvailable){
-            alert('Esse assento não está disponível');
-        }else if (reservados.includes(id)){
-            //caso já esteja na lista de reservados, removemos o item usando o filter:
-            reservados = reservados.filter(item => item !== id);
-            console.log(reservados);
-        }else{
-            //reserva o assento
-            reservados = [...reservados, id];
-            console.log(reservados);
-        }
-
-        setIds(reservados);
-
-    }
-
     function fazerPedido(e){
         e.preventDefault();
         const body = {ids, name, cpf};
@@ -54,9 +35,7 @@ export default function SelecionarAssentos(){
             <List>
                 {assentos.seats ?
                     assentos.seats.map((a) => (
-                        <Assento key={a.id} isAvailable={a.isAvailable} onClick={() => SelecionarAssento(a.id, a.isAvailable)}> 
-                            {a.name} 
-                        </Assento>
+                        <Assento key={a.id} ids={ids} setIds={setIds} id={a.id} isAvailable={a.isAvailable} numeroAssento={a.name}/> 
                     ))
                     : 'Loading...'
                 }
@@ -96,22 +75,6 @@ const List = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-`
-
-const Assento = styled.div`
-  width: 22px;
-  margin: 4px 4px;
-  height: 22px;
-  border: 1px solid #808F9D;
-  background-color: ${props => (props.isAvailable ? '#C3CFD9' : '#FBE192')};
-  border-radius: 50%;
-  color: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  margin-bottom: 18px;
-  cursor: pointer;
 `
 
 const ColorCaptions = styled.div`
