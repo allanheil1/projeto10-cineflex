@@ -7,6 +7,8 @@ export default function SelecionarAssentos(){
 
     const { sessionId } = useParams();
     const [assentos, setAssentos] = useState({});
+    const [name, setName] = useState('');
+    const [cpf, setCpf] = useState('');
     let [reservados, setReservados] = useState([]);
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`);
@@ -25,12 +27,20 @@ export default function SelecionarAssentos(){
             novoReservados = novoReservados.filter(item => item !== id);
             console.log(novoReservados);
         }else{
+            //reserva o assento
             novoReservados = [...novoReservados, id];
             console.log(novoReservados);
         }
 
         setReservados(novoReservados);
 
+    }
+
+    function fazerPedido(e){
+        e.preventDefault();
+        const body = {ids: reservados, name: name, cpf: cpf}
+        console.log(body);
+        const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
     }
 
     return(
@@ -51,6 +61,13 @@ export default function SelecionarAssentos(){
                 <Caption color={'#C3CFD9'}> <p> Disponível </p> </Caption>
                 <Caption color={'#FBE192'}> <p> Indisponível </p> </Caption>
             </ColorCaptions>
+            <Formulario onSubmit={fazerPedido}>
+                <p>Nome do comprador: </p>
+                <input onChange={e => setName(e.target.value)} placeholder='Digite seu nome...' type='text' required/> 
+                <p>CPF do comprador: </p>
+                <input onChange={e => setCpf(e.target.value)} placeholder='Digite seu CPF...' type='text' required/> 
+                <button type='submit'> <h1> Reservar assento(s) </h1> </button>
+            </Formulario>
         </>
     )
 }
@@ -120,4 +137,55 @@ const Caption = styled.div`
     letter-spacing: -0.013em;
     color: #4E5A65;
   }
+`
+
+const Formulario = styled.form`
+    margin: 100px 20px 0px 20px;
+    display: flex;
+    flex-direction: column;
+    p{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: #293845; 
+    }
+    input{
+        height: 51px;
+        background: #FFFFFF;
+        border: 1px solid #D5D5D5;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+        color: #293845;
+        padding-left: 15px;
+        ::placeholder {
+            font-style: italic;
+            color: #AFAFAF;;
+        }
+    }
+    button{
+        margin-top: 57px;
+        width: 100%;
+        height: 42px;
+        background: #E8833A;
+        border: none;
+        border-radius: 3px;
+        border-color: #E8833A;
+        h1{
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 21px;
+            letter-spacing: 0.02em;
+            color: #FFFFFF;
+        }
+    }
 `

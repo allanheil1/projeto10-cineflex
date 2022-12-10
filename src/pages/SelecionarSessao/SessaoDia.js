@@ -42,8 +42,6 @@ const List = styled.div`
 const ShowTime = styled.div`
     width: 83px;
     height: 43px;
-    left: 114px;
-    top: 227px;
     background: #E8833A;
     border-radius: 3px;
     display: flex;
