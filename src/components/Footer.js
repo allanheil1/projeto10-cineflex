@@ -9,7 +9,7 @@ export default function Footer(){
 }
 
 const FooterStyle = styled.div`
-    position: absolute;
+    position: fixed;
     bottom:0;
     left:0;
     background: #DFE6ED;

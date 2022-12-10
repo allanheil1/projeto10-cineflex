@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SelecionarFilme from './pages/SelecionarFilme/SelecionarFilme';
-import SelecionarHorario from './pages/SelecionarHorário/SelecionarHorario';
+import SelecionarSessao from './pages/SelecionarSessao/SelecionarSessao';
 import SelecionarAssentos from './pages/SelecionarAssentos/SelecionarAssentos';
 import ResumoPedido from './pages/ResumodoPedido/ResumoPedido';
 import GlobalStyle from './styles/globalStyle';
@@ -17,8 +17,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<SelecionarFilme />}/>
-          <Route path='/sessoes' element={<SelecionarHorario />}/>
-          <Route path='/assentos' element={<SelecionarAssentos />}/>
+          <Route path='/sessoes/:movieId' element={<SelecionarSessao />}/>
+          <Route path='/assentos/:timeId' element={<SelecionarAssentos />}/>
           <Route path='/sucesso' element={<ResumoPedido />}/>
         </Routes>
       </BrowserRouter>
