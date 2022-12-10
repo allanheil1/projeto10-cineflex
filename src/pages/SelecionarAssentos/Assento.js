@@ -24,7 +24,7 @@ export default function Assento({ ids, setIds, id, isAvailable, numeroAssento })
     }
     return(
         <>
-            <AssentoStyle isAvailable={isAvailable} isSelected={isSelected} onClick={() => SelecionarAssento(ids, setIds, id, isAvailable)}> {numeroAssento} </AssentoStyle>
+            <AssentoStyle data-test='seat' isAvailable={isAvailable} isSelected={isSelected} onClick={() => SelecionarAssento(ids, setIds, id, isAvailable)}> {numeroAssento} </AssentoStyle>
         </>
     );
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export default function SessaoDia({ date, weekday, showtimes }) {
     return (
-        <>
+        <div data-test='movie-day'>
             <Data>
                 {weekday} - {date}
             </Data>
@@ -11,14 +11,14 @@ export default function SessaoDia({ date, weekday, showtimes }) {
                 {showtimes.map((t) => 
                     (
                     <Link key={t.id} to={`/assentos/${t.id}`}>
-                        <ShowTime > 
+                        <ShowTime data-test='showtime'> 
                             <p>{t.name}</p> 
                         </ShowTime>
                     </Link>
                     )
                 )}
             </List>
-        </>
+        </div>
     );
 }
 

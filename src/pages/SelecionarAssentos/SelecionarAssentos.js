@@ -47,10 +47,10 @@ export default function SelecionarAssentos(){
             </ColorCaptions>
             <Formulario onSubmit={fazerPedido}>
                 <p>Nome do comprador: </p>
-                <input onChange={e => setName(e.target.value)} placeholder='Digite seu nome...' type='text' required/> 
+                <input data-test='client-name' onChange={e => setName(e.target.value)} placeholder='Digite seu nome...' type='text' required/> 
                 <p>CPF do comprador: </p>
-                <input onChange={e => setCpf(e.target.value)} placeholder='Digite seu CPF...' type='text' required/> 
-                <button type='submit'> <h1> Reservar assento(s) </h1> </button>
+                <input data-test='client-cpf' onChange={e => setCpf(e.target.value)} placeholder='Digite seu CPF...' type='text' required/> 
+                <button data-test='book-seat-btn' type='submit'> <h1> Reservar assento(s) </h1> </button>
             </Formulario>
             <Footer/>
         </>
