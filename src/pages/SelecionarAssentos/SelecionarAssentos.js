@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 export default function SelecionarAssentos(){
 
@@ -15,6 +14,9 @@ export default function SelecionarAssentos(){
         {promise.then((res) => (setAssentos(res.data), console.log(res.data.seats)))}
     ,[])
 
+    function SelecionarAssentos(){
+        alert('assento selecionado');
+    }
 
     return(
         <> 
@@ -22,11 +24,9 @@ export default function SelecionarAssentos(){
             <List>
                 {assentos.seats ?
                     assentos.seats.map((a) => (
-                        <Link key={a.id}>
-                            <Assento > 
-                                {a.name} 
-                            </Assento>
-                        </Link>
+                        <Assento key={a.id} isAvailable={a.isAvailable} onClick={SelecionarAssentos}> 
+                            {a.name} 
+                        </Assento>
                     ))
                     : 'Loading...'
                 }
@@ -60,7 +60,7 @@ const Assento = styled.div`
   margin: 4px 4px;
   height: 22px;
   border: 1px solid #808F9D;
-  background-color: #C3CFD9;
+  background-color: ${props => (props.isAvailable ? '#C3CFD9' : '#FBE192')};
   border-radius: 50%;
   color: #000000;
   display: flex;
