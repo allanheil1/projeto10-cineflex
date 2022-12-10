@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import Footer from '../../components/Footer'
 
 export default function SelecionarAssentos(){
 
@@ -9,7 +10,8 @@ export default function SelecionarAssentos(){
     const [assentos, setAssentos] = useState({});
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
-    let [reservados, setReservados] = useState([]);
+    const [ids, setIds] = useState([]);
+    const navigate = useNavigate();
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`);
 
@@ -18,29 +20,32 @@ export default function SelecionarAssentos(){
     ,[])
 
     function SelecionarAssento(id, isAvailable){
-        let novoReservados = reservados;
+
+        let reservados = ids;
 
         if(!isAvailable){
             alert('Esse assento não está disponível');
-        }else if (novoReservados.includes(id)){
+        }else if (reservados.includes(id)){
             //caso já esteja na lista de reservados, removemos o item usando o filter:
-            novoReservados = novoReservados.filter(item => item !== id);
-            console.log(novoReservados);
+            reservados = reservados.filter(item => item !== id);
+            console.log(reservados);
         }else{
             //reserva o assento
-            novoReservados = [...novoReservados, id];
-            console.log(novoReservados);
+            reservados = [...reservados, id];
+            console.log(reservados);
         }
 
-        setReservados(novoReservados);
+        setIds(reservados);
 
     }
 
     function fazerPedido(e){
         e.preventDefault();
-        const body = {ids: reservados, name: name, cpf: cpf}
+        const body = {ids, name, cpf};
         console.log(body);
         const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
+        promise.then(navigate('/sucesso'));
+        promise.catch('Erro na requisição');
     }
 
     return(
@@ -68,6 +73,7 @@ export default function SelecionarAssentos(){
                 <input onChange={e => setCpf(e.target.value)} placeholder='Digite seu CPF...' type='text' required/> 
                 <button type='submit'> <h1> Reservar assento(s) </h1> </button>
             </Formulario>
+            <Footer/>
         </>
     )
 }
@@ -140,7 +146,7 @@ const Caption = styled.div`
 `
 
 const Formulario = styled.form`
-    margin: 100px 20px 0px 20px;
+    margin: 50px 20px 0px 20px;
     display: flex;
     flex-direction: column;
     p{
@@ -171,7 +177,8 @@ const Formulario = styled.form`
         }
     }
     button{
-        margin-top: 57px;
+        margin-top: 10px;
+        margin-bottom: 117px;
         width: 100%;
         height: 42px;
         background: #E8833A;
