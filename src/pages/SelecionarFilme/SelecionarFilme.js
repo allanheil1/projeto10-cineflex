@@ -16,9 +16,9 @@ export default function SelecionarFilme(){
 
     return(
         <>
-            <MoviesTitle> Selecione o Filme </MoviesTitle>
+            <PageTitle> Selecione o Filme </PageTitle>
             <MoviesList>
-                {movies !== [] ? 
+                {movies ? 
                     movies.map((movie) => (
                         <Movie key={movie.id} movie={movie}/>
                     ))
@@ -29,7 +29,7 @@ export default function SelecionarFilme(){
     )
 }
 
-const MoviesTitle = styled.div`
+const PageTitle = styled.div`
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
