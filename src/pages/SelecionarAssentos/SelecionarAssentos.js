@@ -52,7 +52,7 @@ export default function SelecionarAssentos(){
                 <input data-test='client-cpf' onChange={e => setCpf(e.target.value)} placeholder='Digite seu CPF...' type='text' required/> 
                 <button data-test='book-seat-btn' type='submit'> <h1> Reservar assento(s) </h1> </button>
             </Formulario>
-            <Footer/>
+            <Footer page={'seats'} sessionId={sessionId}/>
         </>
     )
 }

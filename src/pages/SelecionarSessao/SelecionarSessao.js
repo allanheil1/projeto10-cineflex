@@ -25,7 +25,7 @@ export default function SelecionarHorario(){
                     ))
                     : 'Loading...'
                 } 
-            <Footer />
+            <Footer page={'session'} movieId = {movieId}/>
         </>
     )
 }
