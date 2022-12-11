@@ -15,33 +15,42 @@ export default function ResumoPedido(){
                 <h1>
                     Filme e sessão
                 </h1>
-                <p>
-                    {location.state.movieName}
-                </p>
-                <p>
-                    {location.state.movieSession}
-                </p>
-                <h2>
-                    Ingressos
-                </h2>
-                <p>
-                    {location.state.assentosNumeros.map((h) => (
-                        <div> Assento: {h}</div>
-                    ))}
-                </p>
-                <h3>
-                    Comprador
-                </h3>
-                <p>
-                    Nome: {location.state.body.name}
-                </p>
-                <p>
-                    CPF: {location.state.body.cpf}
-                </p>
+        
+                <div data-test='movie-info'>
+                    <p>
+                        {location.state.movieName}
+                    </p>
+                    <p>
+                        {location.state.movieSession}
+                    </p>
+                </div>
+
+                <div data-test='seats-info'>
+                    <h2>
+                        Ingressos
+                    </h2>
+                    <p>
+                        {location.state.assentosNumeros.map((h, index) => (
+                            <span key={index}> Assento: {h}</span>
+                        ))}
+                    </p>
+                </div>
+
+                <div data-test='client-info'>
+                    <h3>
+                        Comprador
+                    </h3>
+                    <p>
+                        Nome: {location.state.body.name}
+                    </p>
+                    <p>
+                        CPF: {location.state.body.cpf}
+                    </p>
+                </div>
                 </Infos>
                 <Centralized>
                     <Link to={'/'}>
-                        <button> Voltar pra Home </button>
+                        <button data-test='go-home-btn'> Voltar pra Home </button>
                     </Link>
                 </Centralized>
 

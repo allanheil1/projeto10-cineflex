@@ -27,7 +27,7 @@ export default function Footer({ page, movieId, sessionId }){
     switch(page){
         case 'session':
             return(
-                <FooterStyle>
+                <FooterStyle data-test='footer'>
                     <img src={moviePoster}/>
                     <p> {movieName} </p>
                 </FooterStyle>
@@ -35,7 +35,7 @@ export default function Footer({ page, movieId, sessionId }){
 
         case 'seats':
             return(
-                <FooterStyle>
+                <FooterStyle data-test='footer'>
                     <img src={moviePoster}/>
                     <div>
                         <p> {movieName} </p>

@@ -30,7 +30,6 @@ export default function SelecionarAssentos(){
         e.preventDefault();
 
         if(ids.length !== 0){
-            console.log('entrou ' + ids);
             const body = {ids, name, cpf};
             const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
             promise.then(navigate('/sucesso', {state: {body, movieName, movieSession, assentosNumeros}}));
