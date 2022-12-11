@@ -1,26 +1,30 @@
 import styled from 'styled-components'
 import {useState} from 'react';
 
-export default function Assento({ ids, setIds, id, isAvailable, numeroAssento }){
+export default function Assento({ ids, setIds, id, isAvailable, numeroAssento, assentosNumeros, setAssentosNumeros }){
 
     const [isSelected, setIsSelected] = useState(false);
 
     function SelecionarAssento( ids, setIds, id, isAvailable ){
         let reservados = ids;
+        let novoAssentosNumeros = assentosNumeros;
         if(!isAvailable){
             alert('Esse assento não está disponível');
         }else if (reservados.includes(id)){
             //caso já esteja na lista de reservados, removemos o item usando o filter:
             reservados = reservados.filter(item => item !== id);
-            console.log(reservados);
+            novoAssentosNumeros = novoAssentosNumeros.filter(item => item !== numeroAssento);
+            console.log(novoAssentosNumeros);
             setIsSelected(false);
         }else{
             //reserva o assento
             reservados = [...reservados, id];
-            console.log(reservados);
+            novoAssentosNumeros = [...novoAssentosNumeros, numeroAssento];
+            console.log(novoAssentosNumeros);
             setIsSelected(true);
         }
         setIds(reservados);
+        setAssentosNumeros(novoAssentosNumeros);
     }
     return(
         <>

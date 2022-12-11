@@ -6,27 +6,38 @@ import Footer from '../../components/Footer';
 import Assento from './Assento';
 
 export default function SelecionarAssentos(){
-
+    const navigate = useNavigate();
     const { sessionId } = useParams();
     const [assentos, setAssentos] = useState({});
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
     const [ids, setIds] = useState([]);
-    const navigate = useNavigate();
+    //estados para serem passados à tela de sucesso:
+    const [movieName, setMovieName] = useState('');
+    const [movieSession, setMovieSession] = useState('');
+    const [assentosNumeros, setAssentosNumeros] = useState([]);;
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${sessionId}/seats`);
 
     useEffect(() => 
-        {promise.then((res) => (setAssentos(res.data), console.log(res.data.seats)))}
+        {promise.then((res) => 
+            (setAssentos(res.data), 
+            setMovieName(`${res.data.movie.title}`), 
+            setMovieSession(`${res.data.day.weekday}` + ' - ' + `${res.data.name}`)))}
     ,[])
 
     function fazerPedido(e){
         e.preventDefault();
-        const body = {ids, name, cpf};
-        console.log(body);
-        const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
-        promise.then(navigate('/sucesso'));
-        promise.catch('Erro na requisição');
+
+        if(ids.length !== 0){
+            console.log('entrou ' + ids);
+            const body = {ids, name, cpf};
+            const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
+            promise.then(navigate('/sucesso', {state: {body, movieName, movieSession, assentosNumeros}}));
+            promise.catch('Erro na requisição');
+        }else{
+            alert('Por favor, selecione os assentos desejados =)');
+        }
     }
 
     return(
@@ -35,7 +46,15 @@ export default function SelecionarAssentos(){
             <List>
                 {assentos.seats ?
                     assentos.seats.map((a) => (
-                        <Assento key={a.id} ids={ids} setIds={setIds} id={a.id} isAvailable={a.isAvailable} numeroAssento={a.name}/> 
+                        <Assento 
+                            key={a.id} 
+                            ids={ids} 
+                            setIds={setIds} 
+                            id={a.id} 
+                            isAvailable={a.isAvailable} 
+                            numeroAssento={a.name} 
+                            assentosNumeros={assentosNumeros} 
+                            setAssentosNumeros={setAssentosNumeros}/> 
                     ))
                     : 'Loading...'
                 }
