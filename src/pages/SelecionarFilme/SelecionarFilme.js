@@ -6,7 +6,6 @@ import axios from 'axios';
 export default function SelecionarFilme(){
 
     const [movies, setMovies] = useState([]);
-    console.log(movies);
 
     const promise = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
 
@@ -18,11 +17,11 @@ export default function SelecionarFilme(){
         <>
             <PageTitle> Selecione o Filme </PageTitle>
             <MoviesList>
-                {movies ? 
+                {movies.length > 0 ? 
                     movies.map((movie) => (
                         <Movie key={movie.id} movie={movie}/>
                     ))
-                    : 'Loading...'
+                    : 'Carregando filmes...'
                 }
             </MoviesList>
         </>

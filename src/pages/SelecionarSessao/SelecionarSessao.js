@@ -23,7 +23,7 @@ export default function SelecionarHorario(){
                     sessions.days.map((time) => (
                         <SessaoDia key={time.id} weekday={time.weekday} date={time.date} showtimes={time.showtimes}/>
                     ))
-                    : 'Loading...'
+                    : 'Carregando sessões do filme...'
                 } 
             <Footer page={'session'} movieId = {movieId}/>
         </>

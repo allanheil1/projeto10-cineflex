@@ -63,7 +63,7 @@ export default function SelecionarAssentos(){
                             assentosNumeros={assentosNumeros} 
                             setAssentosNumeros={setAssentosNumeros}/> 
                     ))
-                    : 'Loading...'
+                    : 'Carregando assentos da sessão...'
                 }
             </List>
             <ColorCaptions>
