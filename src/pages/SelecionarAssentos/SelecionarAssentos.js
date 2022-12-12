@@ -26,11 +26,19 @@ export default function SelecionarAssentos(){
             setMovieSession(`${res.data.day.weekday}` + ' - ' + `${res.data.name}`)))}
     ,[])
 
+    function formataCPF(cpf){
+        //retira os caracteres indesejados...
+        cpf = cpf.replace(/[^\d]/g, "");
+        
+        //realizar a formatação...
+          return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+
     function fazerPedido(e){
         e.preventDefault();
 
         if(ids.length !== 0){
-            const body = {ids, name, cpf};
+            const body = {ids: ids, name: name, cpf: formataCPF(cpf)};
             const promise = axios.post('https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many', body);
             promise.then(navigate('/sucesso', {state: {body, movieName, movieSession, assentosNumeros}}));
             promise.catch('Erro na requisição');

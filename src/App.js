@@ -1,5 +1,4 @@
 import Header from './components/Header';
-import Footer from './components/Footer';
 import SelecionarFilme from './pages/SelecionarFilme/SelecionarFilme';
 import SelecionarSessao from './pages/SelecionarSessao/SelecionarSessao';
 import SelecionarAssentos from './pages/SelecionarAssentos/SelecionarAssentos';
