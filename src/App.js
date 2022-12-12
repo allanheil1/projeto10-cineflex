@@ -28,5 +28,6 @@ export default function App() {
 }
 
 const Margin = styled.div`
-margin-top: 67px;
+  margin-top: 67px; //margin para o header
+  margin-bottom: 117px; //margin para o footer
 `
